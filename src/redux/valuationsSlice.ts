@@ -1,17 +1,18 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Valuation } from "../core/types";
 
-const initialState: { [key: string]: any }[] = [];
+const initialState: Valuation[] = [];
 
 export const valuationsSlice = createSlice({
     name: "valuations",
     initialState: initialState,
     reducers: {
-        addImage: (state, { payload }: PayloadAction<any>) => {
-            return [...state, payload];
+        setValuations: (_state, { payload }: PayloadAction<Valuation[]>) => {
+            return payload;
         },
-        clearConnections: () => initialState,
+        clearValuations: () => initialState,
     },
 });
 
 export default valuationsSlice.reducer;
-export const labelingActions = valuationsSlice.actions;
+export const valuationsActions = valuationsSlice.actions;
