@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { PredictionResponse } from "../types/predictions";
+import { Valuation } from "../core/types";
 
 export interface ApiConfig {
     url: string;
@@ -15,7 +15,7 @@ export interface ApiConfig {
  * @param {string} config.url - The base URL for the API.
  * @param {number} config.timeout - The timeout duration in milliseconds for API requests.
  */
-export class EncordAPI {
+export class BelongAPI {
     axios: AxiosInstance;
     config: ApiConfig;
     get: AxiosInstance["get"];
@@ -47,27 +47,41 @@ export class EncordAPI {
         this.delete = this.axios.delete;
     }
 
-    async predict(): Promise<
-        | {
-              success: true;
-              data: PredictionResponse;
-          }
-        | {
-              success: false;
-              error: unknown;
-          }
-    > {
-        try {
-            const { data } = await this.get<PredictionResponse>("/predict");
-            console.log(data);
-            return { success: true, data };
-        } catch (error) {
-            return { success: false, error };
+    async fetchValuations() {
+        const result = await this.get<Valuation>("valuations");
+        const { data } = result;
+        if (data) {
+            return {
+                success: true,
+                valuations: data,
+            };
+        } else {
+            return {
+                success: false,
+                error: "failed to fetch valuations data"
+            }
+        }
+    }
+
+    async fetchTransactions() {
+        const result = await this.get<Valuation>("transactions");
+        const { data } = result;
+        if (data) {
+            return {
+                success: true,
+                transactions: data,
+            };
+        } else {
+            return {
+                success: false,
+                error: "failed to fetch transactions data"
+
+            }
         }
     }
 }
 
-export const encordAPI = new EncordAPI({
-    url: "http://localhost:3000/",
+export const belongApi = new BelongAPI({
+    url: "https://b4aayk6lub.execute-api.eu-west-2.amazonaws.com/belong/",
     timeout: 10000,
 });
