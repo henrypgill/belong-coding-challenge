@@ -71,15 +71,7 @@ function App() {
                 activeKey={location.pathname}
                 onChange={(tab) => navigate(`${tab}`)}
             />
-            <div
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    padding: 32,
-                }}
-            >
                 <Outlet />
-            </div>
         </>
     );
 }

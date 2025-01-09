@@ -5,7 +5,7 @@ import { TransactionWithDate } from "../core/types";
 import { useAppSelector } from "../redux/store";
 import { formatDate } from "../core/utils";
 import { ColumnFilterItem } from "antd/es/table/interface";
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 const transactionTypeFilters: ColumnFilterItem[] = [
     {
@@ -134,10 +134,19 @@ export function Transactions(): JSX.Element {
     }
 
     return (
-        <>
+        <div
+        style={{
+            display: "flex",
+            flexDirection: "column",
+            padding: 16,
+            rowGap: 16,
+        }}
+        >
+            <Title level={3}>Transaction History</Title>
             <Table<TransactionWithDate>
                 dataSource={transactions}
                 columns={columns}
+                scroll={{y: 400}}
                 rowKey={(record) => record.id}
                 expandable={{
                     expandedRowRender: (record) => (
@@ -149,7 +158,7 @@ export function Transactions(): JSX.Element {
                     expandedRowKeys: expandedRowKeys,
                 }}
             />
-        </>
+        </div>
     );
 }
 
