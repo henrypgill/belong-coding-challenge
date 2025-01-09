@@ -31,7 +31,7 @@ export function Transactions(): JSX.Element {
             title: "date",
             dataIndex: "date",
             key: "date",
-            render: (_, item) => <Text>{formatDate(item.date)}</Text>,
+            render: (_, item) => <Text key={item.id}>{formatDate(item.date)}</Text>,
             sorter: (a, b) => a.date.getTime() - b.date.getTime(),
             defaultSortOrder: "descend",
         },
@@ -39,6 +39,7 @@ export function Transactions(): JSX.Element {
             title: "amount",
             dataIndex: "amount",
             key: "amount",
+            render: (_, item) => <Text key={item.id}>{item.amount}</Text>,
             sorter: (a, b) => a.amount - b.amount,
         },
         {
@@ -46,7 +47,7 @@ export function Transactions(): JSX.Element {
             dataIndex: "type",
             key: "type",
             render: (_, item) => (
-                <Text>
+                <Text key={item.id}>
                     {item.type === "INVESTMENT" ? "Investment" : "Payment"}
                 </Text>
             ),
