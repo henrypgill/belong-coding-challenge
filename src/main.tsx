@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router";
 import App from "./App.tsx";
 import "./index.css";
 
-import Home from "./Home.tsx";
 import { Provider } from "react-redux";
 import { store } from "./redux/store.ts";
 import { Transactions } from "./transactions/Transactions.tsx";
@@ -16,12 +15,11 @@ createRoot(document.getElementById("root")!).render(
             <BrowserRouter>
                 <Routes>
                     <Route element={<App />}>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/valuations" element={<Valuations />} />
                         <Route
                             path="/transactions"
                             element={<Transactions />}
                         />
-                        <Route path="/valuations" element={<Valuations />} />
                     </Route>
                 </Routes>
             </BrowserRouter>

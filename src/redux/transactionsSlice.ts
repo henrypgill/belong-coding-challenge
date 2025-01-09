@@ -7,7 +7,10 @@ export const transactionsSlice = createSlice({
     name: "transactions",
     initialState: initialState,
     reducers: {
-        setTransactions: (_state, { payload }: PayloadAction<Transaction[]>) => {
+        setTransactions: (
+            _state,
+            { payload }: PayloadAction<Transaction[]>
+        ) => {
             return payload;
         },
         clearTransactions: () => initialState,

@@ -58,8 +58,8 @@ export class BelongAPI {
         } else {
             return {
                 success: false,
-                error: "failed to fetch valuations data"
-            }
+                error: "failed to fetch valuations data",
+            };
         }
     }
 
@@ -74,9 +74,8 @@ export class BelongAPI {
         } else {
             return {
                 success: false,
-                error: "failed to fetch transactions data"
-
-            }
+                error: "failed to fetch transactions data",
+            };
         }
     }
 }
