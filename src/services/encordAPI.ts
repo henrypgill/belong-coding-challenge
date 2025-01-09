@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from "axios";
-import { Valuation } from "../core/types";
+import { Transaction, Valuation } from "../core/types";
 
 export interface ApiConfig {
     url: string;
@@ -47,8 +47,11 @@ export class BelongAPI {
         this.delete = this.axios.delete;
     }
 
-    async fetchValuations() {
-        const result = await this.get<Valuation>("valuations");
+    async fetchValuations(): Promise<
+        | { success: true; valuations: Valuation[] }
+        | { success: false; error: unknown }
+    > {
+        const result = await this.get<Valuation[]>("valuations");
         const { data } = result;
         if (data) {
             return {
@@ -63,8 +66,11 @@ export class BelongAPI {
         }
     }
 
-    async fetchTransactions() {
-        const result = await this.get<Valuation>("transactions");
+    async fetchTransactions(): Promise<
+        | { success: true; transactions: Transaction[] }
+        | { success: false; error: unknown }
+    > {
+        const result = await this.get<Transaction[]>("transactions");
         const { data } = result;
         if (data) {
             return {

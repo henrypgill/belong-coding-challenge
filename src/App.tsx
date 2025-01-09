@@ -2,14 +2,12 @@ import { message, Tabs } from "antd";
 import { useEffect } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router";
 import "./App.css";
-import { useAppDispatch, useAppSelector } from "./redux/store";
+import { useAppDispatch } from "./redux/store";
 import { transactionsActions } from "./redux/transactionsSlice";
 import { valuationsActions } from "./redux/valuationsSlice";
 import { belongApi } from "./services/encordAPI";
 
 function App() {
-    const transactions = useAppSelector((s) => s.transactions);
-    const valuations = useAppSelector((s) => s.valuations);
     const dispatch = useAppDispatch();
     const [messageApi, contextHolder] = message.useMessage();
     const navigate = useNavigate();
@@ -19,7 +17,7 @@ function App() {
     async function fetchAndSetValuations() {
         const result = await belongApi.fetchValuations();
         if (result.success) {
-            dispatch(valuationsActions.setValuations(valuations));
+            dispatch(valuationsActions.setValuations(result.valuations));
         } else {
             messageApi.open({
                 type: "error",
@@ -31,8 +29,9 @@ function App() {
 
     async function fetchAndSetTransactions() {
         const result = await belongApi.fetchTransactions();
+        console.log(result);
         if (result.success) {
-            dispatch(transactionsActions.setTransactions(transactions));
+            dispatch(transactionsActions.setTransactions(result.transactions));
         } else {
             messageApi.open({
                 type: "error",
@@ -54,14 +53,12 @@ function App() {
 
     const tabs = [
         {
-            label: "Valuations",
-            key: "/valuations",
-            Children: <Outlet />,
-        },
-        {
             label: "Transactions",
             key: "/transactions",
-            Children: <Outlet />,
+        },
+        {
+            label: "Valuations",
+            key: "/valuations",
         },
     ];
 
@@ -74,6 +71,15 @@ function App() {
                 activeKey={location.pathname}
                 onChange={(tab) => navigate(`${tab}`)}
             />
+            <div
+                style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    padding: 32,
+                }}
+            >
+                <Outlet />
+            </div>
         </>
     );
 }
