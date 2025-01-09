@@ -18,3 +18,5 @@ export interface Transaction {
         | "MANUAL_CONFIMED";
     reference: string;
 }
+
+export type TransactionWithDate = Omit<Transaction, "date"> & { date: Date };
