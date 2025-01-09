@@ -31,7 +31,9 @@ export function Transactions(): JSX.Element {
             title: "date",
             dataIndex: "date",
             key: "date",
-            render: (_, item) => <Text key={item.id}>{formatDate(item.date)}</Text>,
+            render: (_, item) => (
+                <Text key={item.id}>{formatDate(item.date)}</Text>
+            ),
             sorter: (a, b) => a.date.getTime() - b.date.getTime(),
             defaultSortOrder: "descend",
         },
@@ -115,8 +117,7 @@ export function Transactions(): JSX.Element {
                     }}
                 >
                     <Text>Reference</Text>
-                <Text>{transaction.reference}</Text>
-
+                    <Text>{transaction.reference}</Text>
                 </div>
                 <div
                     style={{
@@ -126,7 +127,7 @@ export function Transactions(): JSX.Element {
                     }}
                 >
                     <Text>Status</Text>
-                <Text>{transaction.status}</Text>
+                    <Text>{transaction.status}</Text>
                 </div>
             </div>
         );
